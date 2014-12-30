@@ -22,6 +22,7 @@
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Cena" />
             <Label text="Zysk" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" text="Policz" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </left>
