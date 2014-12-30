@@ -1,0 +1,4 @@
+WDEC
+====
+
+Wspomaganie gry rynkowej
