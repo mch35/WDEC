@@ -2,11 +2,20 @@ package pl.edu.pw.wdec.model;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 
 public class Prediction {
 	private IntegerProperty production;
 	private DoubleProperty risk;
 	private DoubleProperty profit;
+	
+	public Prediction()
+	{
+		this.production = new SimpleIntegerProperty();
+		this.risk = new SimpleDoubleProperty();
+		this.profit = new SimpleDoubleProperty();
+	}
 
 	public final IntegerProperty productionProperty() {
 		return this.production;

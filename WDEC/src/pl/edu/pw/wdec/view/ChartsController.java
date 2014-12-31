@@ -29,6 +29,9 @@ public class ChartsController {
 	{
 		Series<Integer, Double> riskData = new Series<>();
 		Series<Integer, Double> profitData = new Series<>();
+
+		riskChart.getData().clear();
+		profitChart.getData().clear();
 		
 		for(Prediction prediction : predictions)
 		{
