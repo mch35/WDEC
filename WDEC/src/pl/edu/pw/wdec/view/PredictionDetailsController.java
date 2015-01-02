@@ -8,6 +8,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller which handles left bar fields and reacts for changes.
+ * 
+ * @author Michal Chilczuk
+ *
+ */
 public class PredictionDetailsController {
 	final Logger logger = LoggerFactory.getLogger(PredictionDetailsController.class);
 	@FXML
