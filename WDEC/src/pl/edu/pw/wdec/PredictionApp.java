@@ -11,7 +11,9 @@ import pl.edu.pw.wdec.model.Prediction;
 import pl.edu.pw.wdec.model.PredictionsProvider;
 import pl.edu.pw.wdec.view.ChartsController;
 import pl.edu.pw.wdec.view.PredictionDetailsController;
+import pl.edu.wdec.util.PredictionUtils;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -20,15 +22,24 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * Main app class. It's a bridge between particular controllers.
+ * 
+ * @author Michal Chilczuk
+ *
+ */
 public class PredictionApp extends Application {
 	final Logger logger = LoggerFactory.getLogger(PredictionApp.class);
-	
+
+	/** Main app window/stage */
 	private Stage stage;
+	/** Pane with controls on left and charts on the right */
 	private BorderPane predictionDetails;
+	/** Controller able to manage charts */
 	private ChartsController chartsController;
-	
+	/** Main data provider */
 	private PredictionsProvider predictionProvider;
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		this.stage = primaryStage;
@@ -39,91 +50,100 @@ public class PredictionApp extends Application {
 
 	private void initPredictionDetails() {
 		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(PredictionApp.class.getResource("view/PredictionDetails.fxml"));
+			FXMLLoader loader = PredictionUtils
+					.getViewLoader("view/PredictionDetails.fxml");
 
 			predictionDetails = loader.load();
+
 			PredictionDetailsController controller = loader.getController();
 			controller.setPredictionApp(this);
+
 			Scene scene = new Scene(predictionDetails);
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn(e.getMessage());
+			Platform.exit();
 		}
 	}
 
 	private void initCharts() {
 		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(PredictionApp.class.getResource("view/Charts.fxml"));
+			FXMLLoader loader = PredictionUtils
+					.getViewLoader("view/Charts.fxml");
 
 			AnchorPane charts = loader.load();
 			chartsController = loader.getController();
+
 			predictionDetails.setRight(charts);
+
 			predictionProvider.setProductions(getDefaultProductionLevels());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.warn(e.getMessage());
+			Platform.exit();
 		}
 	}
-	
+
 	private List<Integer> getDefaultProductionLevels() {
 		List<Integer> productionLevels = new LinkedList<Integer>();
-		
-		for(int i = 0; i < 100; i+=5)
-		{
+
+		for (int i = 0; i < 100; i += 5) {
 			productionLevels.add(i);
 		}
-		
+
 		return productionLevels;
 	}
 
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	public void updatePredictionDetails(Double price, Double quality)
-	{
+
+	/**
+	 * Calculates new data predictions basing on given price and quality, and
+	 * the populates it to charts.
+	 * 
+	 * @param price
+	 * @param quality
+	 */
+	public void updatePredictionDetails(Double price, Double quality) {
 		predictionProvider.setPrice(price);
 		predictionProvider.setQuality(quality);
 		List<Prediction> predictions = predictionProvider.getPredictions();
 		chartsController.setPredictionData(predictions);
 	}
-	
-	private class PredictionsProviderImpl implements PredictionsProvider
-	{
-		private ObservableList<Prediction> predictions;		
-		private Double price;		
+
+	/**
+	 * Mock provider
+	 * 
+	 * @author Michal Chilczuk
+	 *
+	 */
+	private class PredictionsProviderImpl implements PredictionsProvider {
+		private ObservableList<Prediction> predictions;
+		private Double price;
 		private Double quality;
-		
+
 		public List<Prediction> getPredictions() {
-			for(Prediction prediction : predictions)
-			{
+			for (Prediction prediction : predictions) {
 				prediction.setRisk(getRisk(prediction.getProduction()));
 				prediction.setProfit(getProfit(prediction.getProduction()));
 			}
-			
+
 			return predictions;
 		}
-		
-		private Double getRisk(Integer production)
-		{
-			return price*production;
-		}
-		
-		private Double getProfit(Integer production)
-		{
-			return quality*production;
+
+		private Double getRisk(Integer production) {
+			return price * production;
 		}
 
-		@Override
+		private Double getProfit(Integer production) {
+			return quality * production;
+		}
+
 		public void setProductions(List<Integer> productions) {
 			predictions = FXCollections.observableArrayList();
-			
-			for(Integer production : productions)
-			{
+
+			for (Integer production : productions) {
 				Prediction prediction = new Prediction();
 				prediction.setProduction(production);
 				prediction.setProfit(0);
@@ -132,12 +152,10 @@ public class PredictionApp extends Application {
 			}
 		}
 
-		@Override
 		public void setPrice(Double price) {
 			this.price = price;
 		}
 
-		@Override
 		public void setQuality(Double quality) {
 			this.quality = quality;
 		}

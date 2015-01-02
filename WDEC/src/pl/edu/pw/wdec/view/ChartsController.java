@@ -9,6 +9,12 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 
+/**
+ * Controls charts in prediction app.
+ * 
+ * @author Michal Chilczuk
+ *
+ */
 public class ChartsController {
 	@FXML
 	private LineChart<Integer, Double> riskChart;
@@ -25,6 +31,11 @@ public class ChartsController {
 		
 	}
 	
+	/**
+	 * Sets prediction data for which charts have to be generated.
+	 * 
+	 * @param predictions List of prediction data
+	 */
 	public void setPredictionData(List<Prediction> predictions)
 	{
 		Series<Integer, Double> riskData = new Series<>();

@@ -5,9 +5,18 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
+/**
+ * Contains particular prediction for given production level.
+ * 
+ * @author Michal Chilczuk
+ *
+ */
 public class Prediction {
+	/** Production level for which prediction is calculated. */
 	private IntegerProperty production;
+	/** Risk of prediction */
 	private DoubleProperty risk;
+	/** Profit of prediction */
 	private DoubleProperty profit;
 	
 	public Prediction()
