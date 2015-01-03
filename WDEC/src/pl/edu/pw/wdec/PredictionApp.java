@@ -1,8 +1,10 @@
 package pl.edu.pw.wdec;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +16,6 @@ import pl.edu.pw.wdec.view.PredictionDetailsController;
 import pl.edu.wdec.util.PredictionUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -46,6 +46,8 @@ public class PredictionApp extends Application {
 		this.predictionProvider = new PredictionsProviderImpl();
 		initPredictionDetails();
 		initCharts();
+
+		stage.show();
 	}
 
 	private void initPredictionDetails() {
@@ -60,7 +62,6 @@ public class PredictionApp extends Application {
 
 			Scene scene = new Scene(predictionDetails);
 			stage.setScene(scene);
-			stage.show();
 		} catch (IOException e) {
 			logger.warn(e.getMessage());
 			Platform.exit();
@@ -76,40 +77,39 @@ public class PredictionApp extends Application {
 			chartsController = loader.getController();
 
 			predictionDetails.setRight(charts);
-
-			predictionProvider.setProductions(getDefaultProductionLevels());
 		} catch (IOException e) {
 			logger.warn(e.getMessage());
 			Platform.exit();
 		}
 	}
-
-	private List<Integer> getDefaultProductionLevels() {
-		List<Integer> productionLevels = new LinkedList<Integer>();
-
-		for (int i = 0; i < 100; i += 5) {
-			productionLevels.add(i);
-		}
-
-		return productionLevels;
-	}
-
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
 
 	/**
-	 * Calculates new data predictions basing on given price and quality, and
-	 * the populates it to charts.
+	 * Calculates new predictions basing on given price and quality, 
+	 * then populates it to charts.
 	 * 
 	 * @param price
 	 * @param quality
 	 */
-	public void updatePredictionDetails(Double price, Double quality) {
+	public void updatePredictions(Double price, Double quality) {
 		predictionProvider.setPrice(price);
 		predictionProvider.setQuality(quality);
-		List<Prediction> predictions = predictionProvider.getPredictions();
-		chartsController.setPredictionData(predictions);
+		chartsController.setPredictionData(predictionProvider.getPredictions());
+	}
+
+	public Prediction getPrediction(Integer production)
+	{
+		Prediction prediction = predictionProvider.getPrediction(production);
+		
+		if(prediction == null)
+		{
+			prediction = new Prediction();
+		}
+		
+		return prediction;
 	}
 
 	/**
@@ -119,17 +119,40 @@ public class PredictionApp extends Application {
 	 *
 	 */
 	private class PredictionsProviderImpl implements PredictionsProvider {
-		private ObservableList<Prediction> predictions;
+		private Map<Integer, Prediction> predictions;
 		private Double price;
 		private Double quality;
+		
+		public PredictionsProviderImpl()
+		{
+			List<Integer> productionLevels = new LinkedList<Integer>();
 
-		public List<Prediction> getPredictions() {
-			for (Prediction prediction : predictions) {
+			for (int i = 0; i < 100; i += 5) {
+				productionLevels.add(i);
+			}
+			
+			setProductions(productionLevels);
+		}
+
+		private void setProductions(List<Integer> productions) {
+			predictions = new HashMap<>();
+			
+			for (Integer production : productions) {
+				Prediction prediction = new Prediction();
+				prediction.setProduction(production);
+				prediction.setProfit(0);
+				prediction.setRisk(0);
+				predictions.put(production, prediction);
+			}
+		}
+		
+		public final List<Prediction> getPredictions() {
+			for (Prediction prediction : predictions.values()) {
 				prediction.setRisk(getRisk(prediction.getProduction()));
 				prediction.setProfit(getProfit(prediction.getProduction()));
 			}
 
-			return predictions;
+			return new LinkedList<Prediction>(predictions.values());
 		}
 
 		private Double getRisk(Integer production) {
@@ -140,24 +163,16 @@ public class PredictionApp extends Application {
 			return quality * production;
 		}
 
-		public void setProductions(List<Integer> productions) {
-			predictions = FXCollections.observableArrayList();
-
-			for (Integer production : productions) {
-				Prediction prediction = new Prediction();
-				prediction.setProduction(production);
-				prediction.setProfit(0);
-				prediction.setRisk(0);
-				predictions.add(prediction);
-			}
-		}
-
 		public void setPrice(Double price) {
 			this.price = price;
 		}
 
 		public void setQuality(Double quality) {
 			this.quality = quality;
+		}
+
+		public Prediction getPrediction(Integer production) {
+			return predictions.get(production);
 		}
 	}
 }

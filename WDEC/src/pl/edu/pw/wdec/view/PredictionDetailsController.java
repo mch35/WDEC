@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import pl.edu.pw.wdec.PredictionApp;
+import pl.edu.pw.wdec.model.Prediction;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -21,14 +23,28 @@ public class PredictionDetailsController {
 	@FXML
 	private TextField qualityField;
 	@FXML
+	private TextField productionField;
+	@FXML
 	private Button computeButton;
+	@FXML	
+	private Button showButton;
+	@FXML	
+	private Label variableCostLabel;
+	@FXML	
+	private Label costLabel;
+	@FXML	
+	private Label incomeLabel;
+	@FXML	
+	private Label profitLabel;
+	@FXML	
+	private Label riskLabel;
 	
 	private PredictionApp predictionApp;
 	
 	@FXML
 	private void initialize()
 	{
-		
+		setLabels(new Prediction());
 	}
 
 	public PredictionApp getPredictionApp() {
@@ -47,11 +63,34 @@ public class PredictionDetailsController {
 			Double price = Double.valueOf(priceField.getText());
 			Double quality = Double.valueOf(qualityField.getText());
 			
-			predictionApp.updatePredictionDetails(price, quality);
+			predictionApp.updatePredictions(price, quality);
 		}
-		catch(NumberFormatException ex)
+		catch(NumberFormatException e)
 		{
-			logger.info("Invalid number format. {}", ex.getMessage());
+			logger.info("Invalid number format. {}", e.getMessage());
 		}
+	}
+	
+	@FXML
+	private void handleShowButtonAction()
+	{
+		try
+		{
+			Integer production = Integer.valueOf(productionField.getText());
+			Prediction prediction = predictionApp.getPrediction(production);
+			setLabels(prediction);
+		}
+		catch(NumberFormatException e)
+		{
+			logger.info("Invalid number format. {}", e.getMessage());			
+		}
+	}
+
+	private void setLabels(Prediction prediction) {
+		variableCostLabel.setText(String.valueOf(prediction.getVariableCost()));
+		costLabel.setText(String.valueOf(prediction.getCost()));
+		incomeLabel.setText(String.valueOf(prediction.getIncome()));
+		profitLabel.setText(String.valueOf(prediction.getProfit()));
+		riskLabel.setText(String.valueOf(prediction.getRisk()));
 	}
 }

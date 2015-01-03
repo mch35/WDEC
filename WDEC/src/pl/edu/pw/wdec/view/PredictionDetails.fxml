@@ -16,18 +16,43 @@
         <rowConstraints>
           <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="399.0" minHeight="10.0" prefHeight="399.0" valignment="TOP" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="399.0" minHeight="10.0" prefHeight="399.0" valignment="TOP" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextField fx:id="priceField" GridPane.columnIndex="1" />
-            <TextField fx:id="qualityField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Cena" />
-            <Label text="Jakość" GridPane.rowIndex="1" />
+            <TextField fx:id="priceField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="qualityField" GridPane.columnIndex="1" />
+            <Label text="Cena" GridPane.rowIndex="1" />
+            <Label text="Jakość" />
             <Button fx:id="computeButton" mnemonicParsing="false" onAction="#handleComputeButtonAction" text="Policz" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets top="10.0" />
+                  <Insets />
                </GridPane.margin></Button>
+            <Label text="Wolumen" GridPane.rowIndex="3" />
+            <TextField fx:id="productionField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Koszt zmienny" GridPane.rowIndex="5" />
+            <Label text="Koszt" GridPane.rowIndex="7" />
+            <Label text="Przychód" GridPane.rowIndex="6" />
+            <Label text="Zysk" GridPane.rowIndex="8" />
+            <Label text="Ryzyko" GridPane.rowIndex="9" />
+            <Label fx:id="incomeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="riskLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label fx:id="variableCostLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="costLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label fx:id="profitLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Button fx:id="showButton" mnemonicParsing="false" onAction="#handleShowButtonAction" text="Pokaż" GridPane.columnIndex="1" GridPane.rowIndex="4" />
          </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
       </GridPane>
    </left>
 </BorderPane>

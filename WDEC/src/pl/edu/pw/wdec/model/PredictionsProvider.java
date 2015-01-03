@@ -9,15 +9,7 @@ import java.util.List;
  *
  */
 public interface PredictionsProvider
-{	
-	
-	/**
-	 * Sets production levels for which predictions will be calculated.
-	 * 
-	 * @param productions List of production levels
-	 */
-	public void setProductions(final List<Integer> productions);
-	
+{
 	/**
 	 * Sets price for which predictions have to be calculated.
 	 * 
@@ -38,4 +30,12 @@ public interface PredictionsProvider
 	 * @return List of predictions.
 	 */
 	public List<Prediction> getPredictions();
+
+	/**
+	 * Returns particular prediction calculated before for given production level.
+	 * 
+	 * @param production
+	 * @return
+	 */
+	public Prediction getPrediction(Integer production);
 }
