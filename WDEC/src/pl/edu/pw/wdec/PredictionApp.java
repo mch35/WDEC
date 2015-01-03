@@ -100,6 +100,12 @@ public class PredictionApp extends Application {
 		chartsController.setPredictionData(predictionProvider.getPredictions());
 	}
 
+	/**
+	 * Returns prediction calculated before for given production level
+	 * 
+	 * @param production
+	 * @return
+	 */
 	public Prediction getPrediction(Integer production)
 	{
 		Prediction prediction = predictionProvider.getPrediction(production);
