@@ -1,4 +1,4 @@
-package pl.edu.wdec.util;
+package pl.edu.pw.wdec.util;
 
 import pl.edu.pw.wdec.PredictionApp;
 import javafx.fxml.FXMLLoader;

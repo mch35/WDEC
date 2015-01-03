@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 
 import pl.edu.pw.wdec.model.Prediction;
 import pl.edu.pw.wdec.model.PredictionsProvider;
+import pl.edu.pw.wdec.util.PredictionUtils;
 import pl.edu.pw.wdec.view.ChartsController;
 import pl.edu.pw.wdec.view.PredictionDetailsController;
-import pl.edu.wdec.util.PredictionUtils;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
