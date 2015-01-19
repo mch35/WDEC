@@ -166,13 +166,14 @@ public class PredictionApp extends Application {
 		}
 
 		private Double getProfit(Integer production) {
-			return quality * production;
+			return price * production - computeUnitCost(production,quality) * production;;
 		}
-
-		public void setPrice(Double price) {
-			this.price = price;
+			
+		private Double computeUnitCost(Integer production, Double quality){
+			return -1.353e-28*(production^5) + 4.755e-22*(production^4) - 4.408e-16*(production^3) + 1.588e-10*(production^2) - 1.518e-5*production 
+						+ 1.474e-5*(quality^3)- 1.87e-3*(quality^2)+ 0.103*quality + 6.706
 		}
-
+		
 		public void setQuality(Double quality) {
 			this.quality = quality;
 		}
