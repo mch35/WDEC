@@ -38,4 +38,11 @@ public interface PredictionsProvider
 	 * @return
 	 */
 	public Prediction getPrediction(Integer production);
+
+	/**
+	 * Sets predicted demand.
+	 * 
+	 * @param demand
+	 */
+	public void setPredictedDemand(Integer demand);
 }

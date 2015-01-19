@@ -94,9 +94,10 @@ public class PredictionApp extends Application {
 	 * @param price
 	 * @param quality
 	 */
-	public void updatePredictions(Double price, Double quality) {
+	public void updatePredictions(Double price, Double quality, Integer demand) {
 		predictionProvider.setPrice(price);
 		predictionProvider.setQuality(quality);
+		predictionProvider.setPredictedDemand(demand);
 		chartsController.setPredictionData(predictionProvider.getPredictions());
 	}
 
@@ -128,6 +129,7 @@ public class PredictionApp extends Application {
 		private Map<Integer, Prediction> predictions;
 		private Double price = 0.0;
 		private Double quality = 0.0;
+		private Integer demand = 0;
 		
 		public PredictionsProviderImpl()
 		{
@@ -205,6 +207,11 @@ public class PredictionApp extends Application {
 		@Override
 		public void setPrice(Double price) {
 			this.price = price;
+		}
+
+		@Override
+		public void setPredictedDemand(Integer demand) {
+			this.demand = demand;
 		}
 	}
 }

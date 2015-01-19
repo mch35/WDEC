@@ -23,6 +23,8 @@ public class PredictionDetailsController {
 	@FXML
 	private TextField qualityField;
 	@FXML
+	private TextField demandField;
+	@FXML
 	private TextField productionField;
 	@FXML
 	private Button computeButton;
@@ -62,8 +64,9 @@ public class PredictionDetailsController {
 		{
 			Double price = Double.valueOf(priceField.getText());
 			Double quality = Double.valueOf(qualityField.getText());
+			Integer demand = Integer.valueOf(demandField.getText());
 			
-			predictionApp.updatePredictions(price, quality);
+			predictionApp.updatePredictions(price, quality, demand);
 		}
 		catch(NumberFormatException e)
 		{

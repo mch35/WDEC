@@ -16,6 +16,7 @@
         <rowConstraints>
           <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="30.0" minHeight="-Infinity" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -32,23 +33,25 @@
             <TextField fx:id="qualityField" GridPane.columnIndex="1" />
             <Label text="Cena" GridPane.rowIndex="1" />
             <Label text="Jakość" />
-            <Button fx:id="computeButton" mnemonicParsing="false" onAction="#handleComputeButtonAction" text="Policz" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button fx:id="computeButton" mnemonicParsing="false" onAction="#handleComputeButtonAction" text="Policz" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin></Button>
-            <Label text="Wolumen" GridPane.rowIndex="3" />
-            <TextField fx:id="productionField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Koszt zmienny" GridPane.rowIndex="5" />
-            <Label text="Koszt" GridPane.rowIndex="7" />
-            <Label text="Przychód" GridPane.rowIndex="6" />
-            <Label text="Zysk" GridPane.rowIndex="8" />
-            <Label text="Ryzyko" GridPane.rowIndex="9" />
-            <Label fx:id="incomeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label fx:id="riskLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Label fx:id="unitCostLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label fx:id="costLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label fx:id="profitLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <Button fx:id="showButton" mnemonicParsing="false" onAction="#handleShowButtonAction" text="Pokaż" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Wolumen" GridPane.rowIndex="4" />
+            <TextField fx:id="productionField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Koszt zmienny" GridPane.rowIndex="6" />
+            <Label text="Koszt" GridPane.rowIndex="8" />
+            <Label text="Przychód" GridPane.rowIndex="7" />
+            <Label text="Zysk" GridPane.rowIndex="9" />
+            <Label text="Ryzyko" GridPane.rowIndex="10" />
+            <Label fx:id="incomeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label fx:id="riskLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label fx:id="unitCostLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Label fx:id="costLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label fx:id="profitLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Button fx:id="showButton" mnemonicParsing="false" onAction="#handleShowButtonAction" text="Pokaż" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Popyt" GridPane.rowIndex="2" />
+            <TextField fx:id="demandField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
          <BorderPane.margin>
             <Insets top="10.0" />
