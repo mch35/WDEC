@@ -126,8 +126,8 @@ public class PredictionApp extends Application {
 	 */
 	private class PredictionsProviderImpl implements PredictionsProvider {
 		private Map<Integer, Prediction> predictions;
-		private Double price;
-		private Double quality;
+		private Double price = 0.0;
+		private Double quality = 0.0;
 		
 		public PredictionsProviderImpl()
 		{
@@ -154,24 +154,32 @@ public class PredictionApp extends Application {
 		
 		public final List<Prediction> getPredictions() {
 			for (Prediction prediction : predictions.values()) {
-				prediction.setRisk(getRisk(prediction.getProduction()));
-				prediction.setProfit(getProfit(prediction.getProduction()));
+				calculatePrediction(prediction);
 			}
 
 			return new LinkedList<Prediction>(predictions.values());
+		}
+
+		private void calculatePrediction(Prediction prediction) {
+			Double unitCost = computeUnitCost(prediction.getProduction(), quality);
+			prediction.setUnitCost(unitCost);
+			prediction.setRisk(getRisk(prediction.getProduction()));
+			prediction.setProfit(getProfit(prediction.getProduction(), unitCost));
 		}
 
 		private Double getRisk(Integer production) {
 			return price * production;
 		}
 
-		private Double getProfit(Integer production) {
-			return price * production - computeUnitCost(production,quality) * production;
+		private Double getProfit(Integer production, Double unitCost) {
+			return price * production - unitCost * production;
 		}
 			
 		private Double computeUnitCost(Integer production, Double quality){
-			return -1.353e-28*(Math.pow(production, 5)) + 4.755e-22*(Math.pow(production, 4)) - 4.408e-16*(Math.pow(production, 3)) + 1.588e-10*(Math.pow(production, 2)) - 1.518e-5*production 
+			/*return -1.353e-28*(Math.pow(production, 5)) + 4.755e-22*(Math.pow(production, 4)) - 4.408e-16*(Math.pow(production, 3)) + 1.588e-10*(Math.pow(production, 2)) - 1.518e-5*production 
 						+ 1.474e-5*(Math.pow(quality, 3))- 1.87e-3*(Math.pow(quality, 2))+ 0.103*quality + 6.706;
+			*/
+			return 3.656E-34*(Math.pow(production, 6)) - 4.718E-28*(Math.pow(production, 5)) + 5.741E-22*(Math.pow(production, 4)) - 4.486E-16*(Math.pow(production, 3)) + 0.000000000158*(Math.pow(production, 2)) - 0.00001507*production + 6.352+1.428E-12*(Math.pow(quality, 6)) - 0.0000000003434*(Math.pow(quality, 5)) + 0.0000001044*(Math.pow(quality, 4)) - 0.000002273*(Math.pow(quality, 3)) - 0.0007455*(Math.pow(quality, 2)) + 0.075*quality - 0.074;
 		}
 		
 		public void setQuality(Double quality) {
@@ -179,7 +187,19 @@ public class PredictionApp extends Application {
 		}
 
 		public Prediction getPrediction(Integer production) {
-			return predictions.get(production);
+			Prediction prediction = predictions.get(production);
+			
+			if(prediction == null)
+			{
+				prediction = new Prediction();
+				prediction.setProduction(production);
+				
+				calculatePrediction(prediction);
+
+				predictions.put(production, prediction);
+			}
+			
+			return prediction;
 		}
 
 		@Override

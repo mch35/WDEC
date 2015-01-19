@@ -45,7 +45,7 @@
             <Label text="Ryzyko" GridPane.rowIndex="9" />
             <Label fx:id="incomeLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label fx:id="riskLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Label fx:id="variableCostLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label fx:id="unitCostLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label fx:id="costLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label fx:id="profitLabel" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Button fx:id="showButton" mnemonicParsing="false" onAction="#handleShowButtonAction" text="Pokaż" GridPane.columnIndex="1" GridPane.rowIndex="4" />

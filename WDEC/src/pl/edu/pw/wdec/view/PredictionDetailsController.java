@@ -29,7 +29,7 @@ public class PredictionDetailsController {
 	@FXML	
 	private Button showButton;
 	@FXML	
-	private Label variableCostLabel;
+	private Label unitCostLabel;
 	@FXML	
 	private Label costLabel;
 	@FXML	
@@ -87,10 +87,10 @@ public class PredictionDetailsController {
 	}
 
 	private void setLabels(Prediction prediction) {
-		variableCostLabel.setText(String.valueOf(prediction.getVariableCost()));
-		costLabel.setText(String.valueOf(prediction.getCost()));
-		incomeLabel.setText(String.valueOf(prediction.getIncome()));
-		profitLabel.setText(String.valueOf(prediction.getProfit()));
-		riskLabel.setText(String.valueOf(prediction.getRisk()));
+		unitCostLabel.setText(String.format("%.2f", prediction.getUnitCost()));
+		costLabel.setText(String.format("%.2f", prediction.getCost()));
+		incomeLabel.setText(String.format("%.2f", prediction.getIncome()));
+		profitLabel.setText(String.format("%.2f", prediction.getProfit()));
+		riskLabel.setText(String.format("%.2f", prediction.getRisk()));
 	}
 }

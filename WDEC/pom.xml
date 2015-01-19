@@ -36,4 +36,8 @@
   		<version>1.7.9</version>
   	</dependency>
   </dependencies>
+  <properties>
+  	<javafx.version>8</javafx.version>
+	<exec.mainClass>pl.edu.pw.wdec.PredictionApp</exec.mainClass>
+  </properties>
 </project>

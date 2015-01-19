@@ -19,7 +19,7 @@ public class Prediction {
 	/** Profit of prediction */
 	private DoubleProperty profit;
 	/** Variable cost for this prediction */
-	private DoubleProperty variableCost;
+	private DoubleProperty unitCost;
 	/** Income for this prediction */
 	private DoubleProperty income;
 	/** Cost of this prediction */
@@ -30,7 +30,7 @@ public class Prediction {
 		this.production = new SimpleIntegerProperty();
 		this.risk = new SimpleDoubleProperty();
 		this.profit = new SimpleDoubleProperty();
-		this.variableCost = new SimpleDoubleProperty();
+		this.unitCost = new SimpleDoubleProperty();
 		this.income = new SimpleDoubleProperty();
 		this.cost = new SimpleDoubleProperty();
 	}
@@ -71,16 +71,16 @@ public class Prediction {
 		this.profitProperty().set(profit);
 	}
 
-	public final DoubleProperty variableCostProperty() {
-		return this.variableCost;
+	public final DoubleProperty unitCostProperty() {
+		return this.unitCost;
 	}
 
-	public final double getVariableCost() {
-		return this.variableCostProperty().get();
+	public final double getUnitCost() {
+		return this.unitCostProperty().get();
 	}
 
-	public final void setVariableCost(final double variableCost) {
-		this.variableCostProperty().set(variableCost);
+	public final void setUnitCost(final double variableCost) {
+		this.unitCostProperty().set(variableCost);
 	}
 
 	public final DoubleProperty incomeProperty() {
