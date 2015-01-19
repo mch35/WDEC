@@ -23,7 +23,8 @@ public class ChartsController {
 	@FXML
 	private void initialize()
 	{
-		
+		riskChart.setCreateSymbols(false);
+		profitChart.setCreateSymbols(false);
 	}
 	
 	/**
