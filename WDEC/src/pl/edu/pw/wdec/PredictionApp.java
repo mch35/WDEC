@@ -170,7 +170,7 @@ public class PredictionApp extends Application {
 		}
 
 		private Double getRisk(Integer production) {
-			Double risk =  (3816.5 +  118.1*price + - 332.3*quality  - 2.2*(Math.pow(price,2)) +  4.4*price*quality + 2.1*(Math.pow(quality,2)) +  0.2*(Math.pow(price,2))*quality  -0.4*price*(Math.pow(quality,2)) + 0.2*(Math.pow(quality,3)) ) / 5000;
+			Double risk =  (3726 - 2.6*price  - 142.7*quality  + 14.9*(Math.pow(price,2)) +  4*price*quality + 1.6*(Math.pow(quality,2)) - 0.5*(Math.pow(price,3)) + 0.1*(Math.pow(price,2))*quality  - 0.1*price*(Math.pow(quality,2)) + 0*(Math.pow(quality,3)) ) / production;
 			if(risk>1.0){
 				risk = 1.0;
 			}
