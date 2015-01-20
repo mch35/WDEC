@@ -135,7 +135,7 @@ public class PredictionApp extends Application {
 		{
 			List<Integer> productionLevels = new LinkedList<Integer>();
 
-			for (int i = 0; i < 400000; i += 10000) {
+			for (int i = 1; i < 400000; i += 10000) {
 				productionLevels.add(i);
 			}
 			
@@ -165,16 +165,58 @@ public class PredictionApp extends Application {
 		private void calculatePrediction(Prediction prediction) {
 			Double unitCost = computeUnitCost(prediction.getProduction(), quality);
 			prediction.setUnitCost(unitCost);
-			prediction.setRisk(getRisk(prediction.getProduction()));
-			prediction.setProfit(getProfit(prediction.getProduction(), unitCost));
+			
+			Integer salePrediction = getSalePrediction(price, quality, demand); // maksymalny popyt w sztukach
+			
+			prediction.setRisk(getRisk(prediction.getProduction(), salePrediction));
+			Integer sold = (int) Math.round(prediction.getRisk() * prediction.getProduction());
+			
+			prediction.setCost(getCost(prediction.getProduction(), unitCost));
+			prediction.setIncome(getIncome(sold, price));
+			prediction.setProfit(prediction.getIncome() - prediction.getCost());
 		}
 
-		private Double getRisk(Integer production) {
-			return price * production;
+		private double getIncome(Integer sold, Double price) {
+			return price * sold;
 		}
 
-		private Double getProfit(Integer production, Double unitCost) {
-			return price * production - unitCost * production;
+		private double getCost(int production, Double unitCost) {
+			return unitCost * production + 10000;
+		}
+
+		private Integer getSalePrediction(Double price, Double quality, Integer demand) {			
+			int salePrediction = (int) (Math.round((1 - getPriceFactor(price) + getQualityFactor(quality)) * demand));
+			if(salePrediction < 0)
+				salePrediction = 0;
+			if(salePrediction > demand)
+				salePrediction = demand;
+			
+			return salePrediction;
+		}
+		
+		private double getQualityFactor(Double quality) {
+			//return -9.544E-12*quality*quality*quality*quality*quality*quality + 0.000000003647*quality*quality*quality*quality*quality - 0.0000005506*quality*quality*quality*quality + 0.00004183*quality*quality*quality - 0.001678*quality*quality + 0.033*quality - 0.15;
+			return 7.932E-7*quality*quality*quality - 1.943E-4*quality*quality + 0.019*quality - 0.207;
+		}
+
+		private Double getPriceFactor(Double price)
+		{
+			//return 0.0000003584*price*price*price*price*price - 0.00003342*price*price*price*price + 0.001167*price*price*price - 0.018*price*price + 0.121*price - 0.017;
+			return 1.135E-3*price*price + 0.035*price + 0.1;
+		}
+
+		private Double getRisk(Integer production, Integer salePrediction) {
+			if(production == 0)
+				return 1.0;
+			
+			if(salePrediction > production)
+				return 1.0;
+			
+			Double result = (double) (salePrediction / production);
+			
+			
+						
+			return result;
 		}
 			
 		private Double computeUnitCost(Integer production, Double quality){

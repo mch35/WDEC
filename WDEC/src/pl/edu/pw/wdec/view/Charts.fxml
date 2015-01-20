@@ -9,7 +9,7 @@
    <children>
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="488.0" prefWidth="482.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <LineChart fx:id="riskChart" layoutX="-60.0" layoutY="-11.0" prefHeight="235.0" prefWidth="472.0" title="Ryzyko" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <LineChart fx:id="riskChart" animated="false" centerShape="false" layoutX="-60.0" layoutY="-11.0" minHeight="235.0" minWidth="472.0" prefHeight="235.0" prefWidth="472.0" scaleShape="false" title="Ryzyko" AnchorPane.bottomAnchor="240.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
                <xAxis>
                   <NumberAxis side="BOTTOM" />
                </xAxis>
@@ -17,7 +17,7 @@
                   <NumberAxis side="LEFT" />
                </yAxis>
             </LineChart>
-            <LineChart fx:id="profitChart" layoutX="8.0" layoutY="240.0" prefHeight="238.0" prefWidth="472.0" title="Zysk" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="240.0">
+            <LineChart fx:id="profitChart" layoutX="8.0" layoutY="240.0" minHeight="235.0" minWidth="472.0" prefHeight="235.0" prefWidth="472.0" title="Zysk" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="240.0" VBox.vgrow="ALWAYS">
                <xAxis>
                   <NumberAxis side="BOTTOM" />
                </xAxis>
